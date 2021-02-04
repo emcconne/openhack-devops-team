@@ -20,3 +20,10 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       working-directory: ./apis/trips
+
+    - name: Login to ACR
+      uses: docker/login-action@v1
+      with:
+        registry: openhackebmacr.azurecr.io
+        username: ${{ secrets.AZURE_CLIENT_ID }}
+        password: ${{ secrets.AZURE_CLIENT_SECRET }}
