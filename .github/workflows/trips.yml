@@ -3,8 +3,8 @@ name: Docker Image CI POI
 on:
   push:
     paths:
-      - 'apis/poi/*'
-      - '.github/workflows/poi.yml'
+      - 'apis/trips/*'
+      - '.github/workflows/trips.yml'
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        path: poi
+        path: trips
 
     - name: Look around
       run: |
@@ -21,4 +21,4 @@ jobs:
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      working-directory: ./poi
+      working-directory: ./trips
