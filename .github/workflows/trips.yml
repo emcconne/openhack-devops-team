@@ -17,6 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Look around
+      run: |
+        ls -la
+        pwd
+
     - name: check modified files
       id: check_files
       run: |
