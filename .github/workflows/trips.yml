@@ -18,7 +18,7 @@ jobs:
         pwd
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:0.1
+      run: docker build . --file Dockerfile --tag openhackebmacr.azurecr.io/my-image-name:0.1
       working-directory: ./apis/trips
 
     - name: Login to ACR
