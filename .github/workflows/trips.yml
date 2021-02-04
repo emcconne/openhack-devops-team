@@ -16,7 +16,7 @@ jobs:
 
     - name: Look around
       run: |
-        ls -la
+        ls -la trips
         pwd
 
     - name: Build the Docker image
