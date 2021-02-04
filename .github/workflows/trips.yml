@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'apis/trips/*'
+  pull_request_target:
+    types: [opened]
   push:
     paths:
       - 'apis/trips/*'
