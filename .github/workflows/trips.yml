@@ -21,6 +21,8 @@ jobs:
       run: |
         ls -la
         pwd
+        echo "GITHUB_SHA=$GITHUB_SHA"
+        echo "GITHUB_REF=$GITHUB_REF"
 
     - name: check modified files
       id: check_files
