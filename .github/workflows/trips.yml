@@ -30,4 +30,4 @@ jobs:
 
     - name: Push to ACR
       run: |
-        docker push my-image-name:0.1
+        docker push openhackebmacr.azurecr.io/my-image-name:0.1
