@@ -17,10 +17,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Look around
+    - name: check modified files
+      id: check_files
       run: |
-        ls -la
-        pwd
+        echo "=============== list modified files ==============="
+        git diff --name-only HEAD^ HEAD
+        
+        echo "========== check paths of modified files =========="
+        git diff --name-only HEAD^ HEAD > files.txt
+        while IFS= read -r file
+        do
+          echo $file
+          if [[ $file != apis/trips/* ]]; then
+            echo "This modified file is not under the 'api/trips' folder."
+            echo "::set-output name=run_job::false"
+            break
+          else
+            echo "::set-output name=run_job::true"
+          fi
+        done < files.txt
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag openhackebmacr.azurecr.io/my-image-name:0.1
