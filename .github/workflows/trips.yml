@@ -32,6 +32,7 @@ jobs:
 
         echo "========== check paths of modified files =========="
         git diff-tree --no-commit-id --name-only -r $GITHUB_SHA > files.txt
+        cat files.txt
         while IFS= read -r file
         do
           echo $file
