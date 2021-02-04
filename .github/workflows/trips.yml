@@ -11,14 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-        path: trips
 
     - name: Look around
       run: |
-        ls -la trips
+        ls -la
         pwd
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      working-directory: ./trips
+      working-directory: ./apis/trips
