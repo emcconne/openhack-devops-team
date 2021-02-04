@@ -1,6 +1,9 @@
 name: Docker Image CI POI
 
 on:
+  pull_request: 
+    branches:
+      - master 
   push:
     paths:
       - 'apis/trips/*'
