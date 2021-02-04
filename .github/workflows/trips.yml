@@ -18,7 +18,7 @@ jobs:
         pwd
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag my-image-name:0.1
       working-directory: ./apis/trips
 
     - name: Login to ACR
@@ -27,3 +27,7 @@ jobs:
         registry: openhackebmacr.azurecr.io
         username: ${{ secrets.AZURE_CLIENT_ID }}
         password: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+    - name: Push to ACR
+      run: |
+        docker push my-image-name:0.1
