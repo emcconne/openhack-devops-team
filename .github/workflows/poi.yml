@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'apis/poi/*'
+      - '.github/workflows/poi.yml'
 
 jobs:
   build:
