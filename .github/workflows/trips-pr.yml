@@ -1,4 +1,4 @@
-name: Docker Image CI POI
+name: Docker Image CI POI PR
 
 on:
   pull_request_target:
@@ -20,23 +20,23 @@ jobs:
         echo "GITHUB_SHA=$GITHUB_SHA"
         echo "GITHUB_REF=$GITHUB_REF"
 
-- id: check_files
-  run: |
-    URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files"
-    curl -s -X GET -G $URL | jq -r '.[] | .filename' > files.txt
-    cat files.txt
-    while IFS= read -r file
-    do
-      echo $file
-      if [[ $file != apis/trips/* ]]; then
-        echo "This modified file is not under the 'api/trips' folder."
-        echo "::set-output name=run_job::false"
-        break
-      else
-        echo "This modifield file is under 'api/trips' and should trigger a build."
-        echo "::set-output name=run_job::true"
-      fi
-    done < files.txt
+    - id: check_files
+      run: |
+        URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files"
+        curl -s -X GET -G $URL | jq -r '.[] | .filename' > files.txt
+        cat files.txt
+        while IFS= read -r file
+        do
+          echo $file
+          if [[ $file != apis/trips/* ]]; then
+            echo "This modified file is not under the 'api/trips' folder."
+            echo "::set-output name=run_job::false"
+            break
+          else
+            echo "This modifield file is under 'api/trips' and should trigger a build."
+            echo "::set-output name=run_job::true"
+          fi
+        done < files.txt
 
   build:
     name: Build trips folder
