@@ -19,6 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
+    - name: Look around
+      run: |
+        ls -la
+        pwd
+        git diff-tree --no-commid-it --name-only -r $GITHUB_SHA
+
     - name: check modified files
       id: check_files
       run: |
