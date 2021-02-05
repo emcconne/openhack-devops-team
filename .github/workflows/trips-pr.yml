@@ -1,10 +1,8 @@
 name: Docker Image CI POI
 
 on:
-  push:
-    paths:
-      - 'apis/trips/*'
-      - '.github/workflows/trips.yml'
+  pull_request_target:
+    types: [opened]
 
 jobs:
   check:
