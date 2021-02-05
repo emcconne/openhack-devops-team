@@ -24,6 +24,7 @@ jobs:
       run: |
         ls -la
         pwd
+        echo $GITHUB_SHA
         git diff-tree --no-commid-it --name-only -r $GITHUB_SHA
 
     - name: check modified files
