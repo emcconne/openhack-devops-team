@@ -31,10 +31,10 @@ jobs:
           if [[ $file != apis/trips/* ]]; then
             echo "This modified file is not under the 'api/trips' folder."
             echo "::set-output name=run_job::false"
-            break
           else
             echo "This modifield file is under 'api/trips' and should trigger a build."
             echo "::set-output name=run_job::true"
+            break
           fi
         done < files.txt
 
