@@ -24,9 +24,8 @@ jobs:
       run: |
         ls -la
         pwd
-        echo $GITHUB_SHA
-        git log -n 2
-        git diff-tree --no-commit-id --name-only -r $GITHUB_SHA
+        echo "GITHUB_SHA=$GITHUB_SHA"
+        echo "GITHUB_REF=$GITHUB_REF"
 
     - name: check modified files
       id: check_files
@@ -45,23 +44,18 @@ jobs:
             echo "::set-output name=run_job::false"
             break
           else
+            echo "This modifield file is under 'api/trips' and should trigger a build."
             echo "::set-output name=run_job::true"
           fi
         done < files.txt
 
   build:
     name: Build trips folder
+    needs: check
     if: needs.check.outputs.run_job == 'true'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
-    - name: Look around
-      run: |
-        ls -la
-        pwd
-        echo "GITHUB_SHA=$GITHUB_SHA"
-        echo "GITHUB_REF=$GITHUB_REF"
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag openhackebmacr.azurecr.io/my-image-name:0.1
