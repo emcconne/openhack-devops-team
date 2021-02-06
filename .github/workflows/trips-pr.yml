@@ -46,8 +46,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Set Short SHA
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+    - name: Check SHA
+      run: echo ${{ steps.vars.outputs.sha_short }}
+
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag openhackebmacr.azurecr.io/my-image-name:0.1
+      run: docker build . --file Dockerfile --tag openhackebmacr.azurecr.io/devopsoh/api-trips:${{ steps.vars.outputs.sha_short }}
       working-directory: ./apis/trips
 
     - name: Login to ACR
@@ -59,4 +66,4 @@ jobs:
 
     - name: Push to ACR
       run: |
-        docker push openhackebmacr.azurecr.io/my-image-name:0.1
+        docker push openhackebmacr.azurecr.io/devopsoh/api-trips:${{ steps.vars.outputs.sha_short }}
