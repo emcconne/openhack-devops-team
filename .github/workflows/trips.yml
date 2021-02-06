@@ -13,6 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Try Some Stuff
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }}
+
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag openhackebmacr.azurecr.io/my-image-name:0.1
       working-directory: ./apis/trips
@@ -27,3 +31,13 @@ jobs:
     - name: Push to ACR
       run: |
         docker push openhackebmacr.azurecr.io/my-image-name:0.1
+
+    - name: Create Issue
+      if: failure()
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        assignees: emcconne, brentmcconnell
+        milestone: 1
+        update_existing: true
