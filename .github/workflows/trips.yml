@@ -18,7 +18,7 @@ jobs:
         echo ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag openhackebmacr.azurecr.io/my-image-name:0.1
+      run: docker build . --file Dockerfile --tag openhackebmacr.azurecr.io/devopsosh/api-trips:${GITHUB_SHA::8}
       working-directory: ./apis/trips
 
     - name: Login to ACR
@@ -30,7 +30,7 @@ jobs:
 
     - name: Push to ACR
       run: |
-        docker push openhackebmacr.azurecr.io/my-image-name:0.1
+        docker push openhackebmacr.azurecr.io/devopsosh/api-trips:${GITHUB_SHA::8}}
 
     - uses: nashmaniac/create-issue-action@v1.1
       name: Create Issue Action
