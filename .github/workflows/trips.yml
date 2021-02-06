@@ -33,12 +33,13 @@ jobs:
       run: |
         docker push openhackebmacr.azurecr.io/my-image-name:0.1
 
-    - name: Create Issue
+    - uses: nashmaniac/create-issue-action@v1.1
+      name: Create Issue Action
       if: failure()
-      uses: JasonEtco/create-an-issue@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        assignees: emcconne, brentmcconnell
-        milestone: 1
-        update_existing: true
+        title: Build Failed
+        token: ${{secrets.GITHUB_TOKEN}}
+        assignees: ${{github.actor}}
+        labels: worflow-failed
+        body: Workflow failed for commit ${{github.sha}}
+
